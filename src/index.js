@@ -2,7 +2,8 @@ import './css/styles.css';
 const debounce = require('lodash.debounce');
 import API from './fetchCountries';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
+import countryList from './templates/country-list.hbs';
+import countryInfo from './templates/country-info.hbs';
 const DEBOUNCE_DELAY = 300;
 
 const refs = {
@@ -22,19 +23,13 @@ function hendleEventInput(eve) {
   if (value !== '') {
     API(value)
       .then(countries => {
-        if (countries !== undefined && countries.length >= 10) {
+        if (countries.length >= 10) {
           otputWarningNotification();
           cleanCountryList();
         } else if (countries.length >= 2 && countries.length <= 10) {
-          const createHtml = countries
-            .map(el => createCountriesList(el))
-            .join('');
-          cleanCountryInfo();
-          refs.otputCountry.innerHTML = createHtml;
+          createCountriesList(countries);
         } else if (countries.length === 1) {
-          cleanCountryList();
-          const createInfo = createInfoOfFindCountry(countries[0]);
-          refs.outputInfo.innerHTML = createInfo;
+          createInfoOfFindCountry(countries);
         }
       })
       .catch(otputErrorNotification);
@@ -52,35 +47,16 @@ function otputErrorNotification() {
   Notify.failure('Oops, there is no country with that name');
 }
 
-function createCountriesList({ flags, name }) {
-  return `<li class='country-item'>
-         <img src="${flags.svg}" width="25" height="25"/>
-         <p style="font-weight:700; font-size:20px; display:inline;">${name}</p>
-         </li> `;
+function createCountriesList(countries) {
+  cleanCountryInfo();
+  const createHtml = countries.map(el => countryList(el)).join('');
+  refs.otputCountry.innerHTML = createHtml;
 }
 
-function createInfoOfFindCountry({
-  name,
-  flags,
-  capital,
-  population,
-  languages,
-}) {
-  return `<ul>
-  <li>
-  <img src="${flags.svg}" width="25" height="25"/>
-  <p style="font-weight:900; font-size:30px; display:inline;">${name}</p>
-  </li>
-   <li>  
-  <p style="font-weight:700; font-size:18px; display:inline;">Capital: <spam>${capital}</spam></p>
-  </li>
-    <li>  
-  <p style="font-weight:700; font-size:18px; display:inline;">Population: <spam>${population}</spam></p>
-  </li>
-    <li>  
-  <p style="font-weight:700; font-size:18px; display:inline;">Languages: <spam>${languages}</spam></p>
-  </li>
-  </ul>`;
+function createInfoOfFindCountry(countries) {
+  cleanCountryList();
+  const createInfo = countryInfo(countries[0]);
+  refs.outputInfo.innerHTML = createInfo;
 }
 
 function cleanCountryList() {
