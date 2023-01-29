@@ -4,7 +4,8 @@
         <p class="found-country" >{{name}}</p>
     </li>
     <li class="country-info-item">
-        <p class="country-info-text" >Capital:  <spam class="country-info-spam">{{capital}}</spam>
+        <p class="country-info-text" >Capital:  <spam class="country-info-spam">
+            {{capital}}{{#if capital}}{{else}}unknoun{{/if}}</spam>
         </p>
     </li>
     <li class="country-info-item">

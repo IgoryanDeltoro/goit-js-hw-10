@@ -1,16 +1,14 @@
 import './css/styles.css';
-const debounce = require('lodash.debounce');
 import API from './fetchCountries';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import countryList from './templates/country-list.hbs';
 import countryInfo from './templates/country-info.hbs';
+import getRefs from './get-refs';
+const debounce = require('lodash.debounce');
+
 const DEBOUNCE_DELAY = 300;
 
-const refs = {
-  input: document.querySelector('#search-box'),
-  otputCountry: document.querySelector('.country-list'),
-  outputInfo: document.querySelector('.country-info'),
-};
+const refs = getRefs();
 
 refs.input.addEventListener(
   'input',
