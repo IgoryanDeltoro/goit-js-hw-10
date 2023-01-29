@@ -86,3 +86,7 @@ spam.country-info-spam {
 .country-item:not(:last-child) {
   margin-bottom: 5px;
 }
+
+.country-info-spam.lang:not(:last-of-type)::after {
+  content: ', ';
+}

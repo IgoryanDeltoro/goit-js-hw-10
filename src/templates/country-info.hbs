@@ -1,6 +1,6 @@
 <ul class="country-info-list">
     <li class="country-info-item">
-        <img src="{{flags.svg}}"  width="24" height="24" />
+        <img src="{{flags.svg}}" alt="name" width="24" height="24" />
         <p class="found-country" >{{name}}</p>
     </li>
     <li class="country-info-item">
@@ -12,8 +12,10 @@
         </p>
     </li>
     <li class="country-info-item">
-        <p class="country-info-text" >Languages: {{#each languages}} 
-            <spam class="country-info-spam">{{ nativeName}}</spam>{{/each}}
+        <p class="country-info-text" >Languages: {{#each languages}}
+        <spam class="country-info-spam lang">{{nativeName}}</spam>
+        {{/each}}
         </p>
     </li>
 </ul>
+
