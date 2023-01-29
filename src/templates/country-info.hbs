@@ -12,9 +12,9 @@
         </p>
     </li>
     <li class="country-info-item">
-        <p class="country-info-text" >Languages: {{#each languages}}
+        <p class="country-info-text" >Languages: {{#each languages}}{{#if nativeName}}
         <spam class="country-info-spam lang">{{nativeName}}</spam>
-        {{/each}}
+    {{/if}}{{/each}}
         </p>
     </li>
 </ul>
